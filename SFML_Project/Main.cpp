@@ -1,43 +1,53 @@
 #include "SFML/include/SFML/Graphics.hpp"
 
-sf::Vector2f windowSize(1024, 768);
-sf::VideoMode videoMode(windowSize.x, windowSize.y);
-sf::RenderWindow window(videoMode, "Country", sf::Style::Default);
 
 int main()
 {
-	//Initiallize game objects
-	sf::RectangleShape rect(sf::Vector2f(500.0f, 300.0f));
-	rect.setFillColor(sf::Color::White);
-	rect.setPosition(windowSize.x / 2, windowSize.y / 2);
-	rect.setOrigin(sf::Vector2f(rect.getSize().x/2, rect.getSize().y/2));
+	sf::RenderWindow window(sf::VideoMode(640, 480), "Bouncing Mushroom");
 
-	sf::CircleShape circle;
-	circle.setRadius(60);
-	circle.setFillColor(sf::Color::Red);
-	circle.setPosition(windowSize.x / 2, windowSize.y / 2);
-	circle.setOrigin(circle.getRadius(), circle.getRadius());
-
-	sf::ConvexShape triangle;
-	triangle.setPointCount(3);
-	triangle.setPoint(0, sf::Vector2f(-300, 0));
-	triangle.setPoint(1, sf::Vector2f(0, -350));
-	triangle.setPoint(2, sf::Vector2f(300, 0));
-	triangle.setFillColor(sf::Color::Cyan);
-	triangle.setPosition(windowSize.x / 2, windowSize.y / 2);
+	sf::Texture mushroomTexture;
+	mushroomTexture.loadFromFile("Deps/Images/Mushroom.png");
+	sf::Sprite mushroom(mushroomTexture);
+	sf::Vector2u size = mushroomTexture.getSize();
+	mushroom.setOrigin(size.x / 2, size.y / 2);
+	sf::Vector2f increment(0.1f, 0.1f);
 
 	while (window.isOpen())
 	{
+		//initiallize game objects
+
 		//handle hardware input events
+		sf::Event event;
+
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+			{
+				window.close();
+			}
+		}
 
 		//update game objects
-		window.clear(sf::Color::Black); //Clears screen and sets background colour.
+		/*If mushroom right side exceeds right side of screen or left side of mushroom exceeds the left side of the screen reverse x increment*/
+		if ((mushroom.getPosition().x) + (size.x / 2) > window.getSize().x && (increment.x > 0) || (mushroom.getPosition().x) - (size.x / 2) < 0 && (increment.x < 0))
+		{
+			increment.x = -increment.x;
+		}
+		/*If mushroom top side exceeds top side of screen or bottom side of mushroom exceeds the bottom side of the screen reverse y increment*/
+		if ((mushroom.getPosition().y) + (size.y / 2) > window.getSize().y && (increment.y > 0) || (mushroom.getPosition().y) - (size.y / 2) < 0 && (increment.y < 0))
+		{
+			increment.y = -increment.y;
+		}
+
+		mushroom.setPosition(mushroom.getPosition() + increment);
+		window.clear(sf::Color::White);
+
 		//render game objects
-		window.draw(rect);
-		window.draw(circle);
-		window.draw(triangle);
-		window.display(); //Displays the window
+		window.draw(mushroom);
+
+		window.display();
 	}
+
 
 	return 0;
 }
