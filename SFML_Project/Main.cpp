@@ -1,9 +1,8 @@
 #include "SFML/include/SFML/Graphics.hpp"
 
-
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(640, 480), "Bouncing Mushroom");
+	sf::RenderWindow window(sf::VideoMode(1080, 720), "Bouncing Mushroom");
 
 	sf::Texture mushroomTexture;
 	mushroomTexture.loadFromFile("Deps/Images/Mushroom.png");
@@ -47,7 +46,6 @@ int main()
 
 		window.display();
 	}
-
 
 	return 0;
 }
