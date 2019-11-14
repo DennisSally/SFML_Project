@@ -1,4 +1,5 @@
 #ifndef WINDOW
+
 #include "SFML/include/SFML/Graphics.hpp"
 #include "SFML/include/SFML/Window.hpp"
 
@@ -6,7 +7,7 @@ class cWindow
 {
 	public:
 		cWindow();
-		cWindow(const std::string& lWindowTitle, sf::Vector2u& lWindowSize);
+		cWindow(const std::string& lWindowTitle, const sf::Vector2u& lWindowSize);
 		~cWindow();
 
 		void BeginDraw(); //Clear Window

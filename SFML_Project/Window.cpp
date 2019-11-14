@@ -2,10 +2,10 @@
 
 cWindow::cWindow()
 {
-	SetUp("Window", sf::Vector2u(640, 480));
+	SetUp("Window", sf::Vector2u(800, 600));
 }
 
-cWindow::cWindow(const std::string& lWindowTitle, sf::Vector2u& lWindowSize)
+cWindow::cWindow(const std::string& lWindowTitle, const sf::Vector2u& lWindowSize)
 {
 	SetUp(lWindowTitle, lWindowSize);
 }
@@ -72,6 +72,7 @@ sf::Vector2u cWindow::GetWindowSize()
 
 void cWindow::SetUp(const std::string& lWindowTitle, const sf::Vector2u& lWindowSize)
 {
+	mWindow.setFramerateLimit(60);
 	mWindowCaption = lWindowTitle;
 	mWindowSize = lWindowSize;
 	mIsFullScreen = false;
