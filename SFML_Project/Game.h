@@ -1,13 +1,13 @@
 #ifndef GAME
 
-#include "Window.h"
+#include "World.h"
+#include "TextBox.h"
 
 class cGame
 {
 	public:
 		cGame();
 		~cGame();
-
 		void HandleInput();
 		void Update();
 		void Render();
@@ -16,14 +16,16 @@ class cGame
 		void RestartClock();
 
 	private:
-		void MoveMushroom();
 		cWindow mWindow;
 		sf::Texture mMushroomTexture;
 		sf::Sprite mMushroom;
 		sf::Vector2u size = mMushroomTexture.getSize();
 		sf::Vector2i mIncrement;
 		sf::Clock mClock;
-		sf::Time mElapsed;
+		float mElapsed;
+		World mWorld;
+		Snake mSnake;
+		TextBox mTextBox;
 };
 
 #endif
